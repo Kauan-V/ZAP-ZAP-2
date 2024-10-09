@@ -21,6 +21,6 @@ def homepage():
 
 #Roda o  nosso app
 if __name__ == "__main__": 
-    Socketio.run(app)  #inicia o servidor, e permite que o tunel seja ativado , e o servidor seja acessado por qualquer usuario que esteja na mesma rede que o servidor.
+    Socketio.run(app, host="0.0.0.0")  #inicia o servidor, e permite que o tunel seja ativado , e o servidor seja acessado por qualquer usuario que esteja na mesma rede que o servidor.
 
 #Websocket= tunel que liga um computador no outro (ex: para mensagens)

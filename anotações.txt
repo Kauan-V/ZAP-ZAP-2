@@ -1,0 +1,70 @@
+1-Ambiente virtual (Flask: permite criar site com python)
+    -Ctrl + Shift + P
+    -Escrever "Environment", selecionar "Create Environment", Venv e depois Python
+
+2-Criar site com o flask
+
+3-ender_template: importar arquivo HTML para rodar
+
+4- "!" + "Tab"= Estrutura basica do HTML
+
+5-<Title>: nome da pagina
+
+6-<body>: conteudo da pagina
+
+7-<div>: divisoria
+
+8-id: Único(#) 
+-class: Pode haver mais de um item(.)
+
+9-ipconfig: mostra informação do ip de sua internet
+
+10-fazer o deploy para um servidor publico
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whatsapp 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js" integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <h1>Codigo de mensagem</h1>
+
+    <div id="lista_mensagens">
+
+    </div>
+     
+    <input type="text" id="usuario" placeholder="Usuario" required>
+    <input type="text" id="Mensagem" placeholder="Mensagem" required>
+
+    <button id="botao">Enviar</button> 
+
+    <script type="text/javascript">
+        $(document).ready(function(){ "Cria uma ação que funciona no site todo"
+            var socket = io("192.168.200.115:5000");
+            socket.on("connect", function(){
+                console.log("Conectado ao servidor");
+        });
+
+        socket.on("message", function(data){ 
+            console.log("disparou uma mensagem");
+            $("#lista_mensagens").append($("<p>").text(data));
+        });
+
+            $("#botao").on("click", function(){ "Cria a ação no botão quando clicado"
+                console.log("Clicou no botao"); "As ações"
+                socket.send($("#usuario").val() + ": " + $("#Mensagem").val());
+                $("Mensagem").val("");           
+            });
+
+
+        })
+    </script>
+
+</body>
+</html>

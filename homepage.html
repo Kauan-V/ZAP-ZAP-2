@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAP 2</title>
+    <style>
+        /* same styles as before */
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="top-bar">
+        <h1>ZAP ZAP 2!!</h1>
+    </div>
+
+    <div id="chat-container">
+        <p>Bem vindo ao ZAP ZAP 2! (Seja bem vindo Valmaceda 💣💣💣)</p>
+    </div>
+
+    <div id="input-container">
+        <input type="text" id="usuario" placeholder="Usuario" required>
+        <div style="width: 10px;"></div>
+        <input type="text" id="mensagem" placeholder="Mensagem" required>
+        <button id="botao">Enviar</button>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var socketUrl = window.location.origin; // get the current URL
+            var socket = io(socketUrl); // connect to the socket
+
+            socket.on("connect", function() {
+                console.log("conectou");
+            });
+
+            socket.on("message", function(data) {
+                console.log("enviou mensagem");
+                $("#chat-container").append($('<p>').text(data));
+                // Scroll to the bottom of the chat container
+                $("#chat-container").scrollTop($("#chat-container")[0].scrollHeight);
+            });
+
+            $("#botao").on('click', function() {
+                console.log("clicou botao");
+                socket.send($('#usuario').val() + ": " + $('#mensagem').val());
+                $('#mensagem').val('');
+            });
+
+            $("#mensagem").on('keypress', function() {
+                if (event.key === "Enter") {
+                    console.log("deu enter");
+                    socket.send($('#usuario').val() + ": " + $('#mensagem').val());
+                    $('#mensagem').val('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
